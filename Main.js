@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+
+var dt = 0.05;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -95,10 +97,43 @@ for (let i = 0; i <= 8; i++) {
     ));
 }
 
+const ball = new THREE.Mesh(
+    new THREE.SphereGeometry(0.2, 32, 32),
+    new THREE.MeshPhongMaterial({ color: 'yellow' })
+);
+ball.position.set(0, 1, -10);
+scene.add(ball);
+let t = 0;
+let reverse = false;
+
+function ballBounceCurve(t) {
+
+    let z;
+    if (reverse) {
+        z = -10 + 10 * t / Math.PI; 
+    } else {
+        z = 10 - 10 * t / Math.PI; 
+    }
+    const y = Math.abs(Math.cos(t)) * 3;
+    
+
+    return new THREE.Vector3(0, y, z);
+}
+
+
 function animate() {
     requestAnimationFrame(animate);
+
+    t += dt;
+
+    if (t >= 2 * Math.PI) {
+        reverse = !reverse;
+        t = 0;
+    }
+
+    ball.position.copy(ballBounceCurve(t));
     controls.update();
-    renderer.render(scene, camera);
+    renderer.render(scene, camera);    renderer.render(scene, camera);
 }
 animate();
 
