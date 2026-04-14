@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { makeCourt } from './court.js';
 import { ballBounceCurve } from './animation.js';
-// import { addFence, addSpotlights } from './courtExtras.js';
+import { addFence, addSpotlights } from './courtExtras.js';
 
 var dt = 0.05;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -65,8 +65,8 @@ function animate() {
 }
 animate();
 
-// addFence(scene);
-// addSpotlights(scene);
+addFence(scene);
+addSpotlights(scene);
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
