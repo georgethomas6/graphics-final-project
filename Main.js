@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { makeCourt } from './court.js';
 import { ballBounceCurve } from './animation.js';
 import { addFence, addSpotlights } from './courtExtras.js';
+import {createRacquet} from './racquet.js';
 
 var dt = 0.05;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -48,6 +49,17 @@ scene.add(ball);
 let t = 0;
 let reverse = false;
 
+let r1 = createRacquet(1,2);
+let r2 = createRacquet(1,2);
+
+r1.scale.set(0.25,0.25,0.25);
+r2.scale.set(0.25,0.25,0.25);
+
+r1.position.set(0, 3, 10);
+r2.position.set(0, 3, -10);
+
+scene.add(r1);
+scene.add(r2);
 
 function animate() {
     requestAnimationFrame(animate);
