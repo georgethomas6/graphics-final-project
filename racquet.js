@@ -1,4 +1,5 @@
 
+import * as THREE from 'three';
 
 // creates the head of the racquet
 // possible to create racquet head with pattern via pathToTexture
@@ -141,6 +142,6 @@ export function createRacquet(headWidth, headHeight, headColor = 0x000000, throa
     racquet.add(handle);
     racquet.add(rightThroat);
     handle.position.y = -headHeight * 2;
-    scene.add(racquet);
+    return racquet;
 }
 
