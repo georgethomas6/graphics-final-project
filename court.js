@@ -1,6 +1,5 @@
 
 import * as THREE from 'three';
-
 export function makeCourt() {
 
     const courtGroup = new THREE.Group();

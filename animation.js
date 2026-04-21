@@ -1,15 +1,21 @@
+
 import * as THREE from 'three';
 
-export function ballBounceCurve(t, reverse) {
 
-    let z;
-    if (reverse) {
-        z = -10 + 10 * t / Math.PI; 
-    } else {
-        z = 10 - 10 * t / Math.PI; 
-    }
-    const y = Math.abs(Math.cos(t)) * 3;
-    
+export function ballBounceCurve(t, reverse, x_initial, x_final) {
 
-    return new THREE.Vector3(0, y, z);
+    // horizontal motion
+    const x = (1 - t) * x_initial + t * x_final;
+
+    const z = reverse
+        ? -10 + 20 * t
+        : 10 - 20 * t;
+
+    let y = Math.abs( Math.sin( t * Math.PI + Math.PI / 4)) * 5;
+
+    return new THREE.Vector3(x, y, z);
+}
+
+export function racquetX(t, x_initial, x_final) {
+    return (1 - t) * x_initial + t * x_final;
 }
