@@ -4,9 +4,9 @@ export function makeCourt() {
 
     const courtGroup = new THREE.Group();
     const court = new THREE.Mesh(
-    new THREE.BoxGeometry(11, 0.2, 24),
-    new THREE.MeshPhongMaterial({ color: 'purple' })
-);
+        new THREE.BoxGeometry(11, 0.2, 24),
+        new THREE.MeshPhongMaterial({ color: 'purple' })
+    );
     const lines = 
         [
             makeLine(11, 0.07, 0,  12),

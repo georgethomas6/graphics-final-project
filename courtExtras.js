@@ -1,6 +1,17 @@
 import * as THREE from 'three';
+import { makeConcreteTexture } from './textures.js';
 
 export function addFence(scene) {
+    const concreteTex = makeConcreteTexture();
+    concreteTex.repeat.set(10, 18);
+    const concreteFloor = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 36),
+        new THREE.MeshPhongMaterial({ map: concreteTex })
+    );
+    concreteFloor.rotation.x = -Math.PI / 2;
+    concreteFloor.position.y = -0.09;
+    scene.add(concreteFloor);
+
     const postMat = new THREE.MeshPhongMaterial({ color: 'gray' });
     const wireMat = new THREE.MeshPhongMaterial({ color: 'silver' });
     const postGeo = new THREE.CylinderGeometry(0.06, 0.06, 4, 8);
@@ -73,5 +84,49 @@ export function addSpotlights(scene) {
         spot.shadow.mapSize.height = 1024;
         scene.add(spot);
         scene.add(spot.target);
+    });
+}
+
+export function addBleachers(scene) {
+    const seatMat = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
+    const frameMat = new THREE.MeshPhongMaterial({ color: 0x999999 });
+
+    const rows = 5;
+    const treadDepth = 1.2;
+    const riserHeight = 0.5;
+    const length = 28;
+
+    [-1, 1].forEach(side => {
+        const startX = side * 11;
+
+        for (let i = 0; i < rows; i++) {
+            const seatX = startX + side * (i * treadDepth + treadDepth / 2);
+            const seatY = i * riserHeight + 0.1;
+
+            const seat = new THREE.Mesh(
+                new THREE.BoxGeometry(treadDepth, 0.12, length),
+                seatMat
+            );
+            seat.position.set(seatX, seatY, 0);
+            scene.add(seat);
+
+            if (i > 0) {
+                const riserX = startX + side * i * treadDepth;
+                const riserY = i * riserHeight - riserHeight / 2 + 0.1;
+                const riser = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.12, riserHeight, length),
+                    frameMat
+                );
+                riser.position.set(riserX, riserY, 0);
+                scene.add(riser);
+            }
+        }
+
+        const base = new THREE.Mesh(
+            new THREE.BoxGeometry(rows * treadDepth, 0.15, length),
+            frameMat
+        );
+        base.position.set(startX + side * (rows * treadDepth / 2), -0.08, 0);
+        scene.add(base);
     });
 }
