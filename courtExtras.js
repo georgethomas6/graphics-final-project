@@ -45,57 +45,6 @@ export function addFence(scene) {
     });
 }
 
-export function addBleachers(scene) {
-    const seatMat = new THREE.MeshPhongMaterial({ color: 'burlywood' });
-    const frameMat = new THREE.MeshPhongMaterial({ color: 'dimgray' });
-
-    const numRows = 5;
-    const stepW = 1.2;   
-    const stepH = 0.5;    
-    const seatThick = 0.12;
-    const bleacherLen = 30; 
-
-    [-1, 1].forEach(side => {
-        const baseX = side * 12;
-
-        for (let i = 0; i < numRows; i++) {
-            const seatX = baseX + side * (i * stepW + stepW / 2);
-            const seatY = i * stepH + seatThick / 2;
-
-            const seat = new THREE.Mesh(
-                new THREE.BoxGeometry(stepW, seatThick, bleacherLen),
-                seatMat
-            );
-            seat.position.set(seatX, seatY, 0);
-            scene.add(seat);
-        }
-
-        for (let i = 1; i <= numRows; i++) {
-            const legX = baseX + side * i * stepW;
-            const legH = i * stepH;
-            [-bleacherLen / 2, bleacherLen / 2].forEach(z => {
-                const leg = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.1, legH, 0.1),
-                    frameMat
-                );
-                leg.position.set(legX, legH / 2, z);
-                scene.add(leg);
-            });
-        }
-
-        for (let i = 1; i <= numRows; i++) {
-            const beamX = baseX + side * i * stepW;
-            const beamY = i * stepH;
-            const beam = new THREE.Mesh(
-                new THREE.BoxGeometry(0.1, 0.1, bleacherLen),
-                frameMat
-            );
-            beam.position.set(beamX, beamY, 0);
-            scene.add(beam);
-        }
-    });
-}
-
 export function addSpotlights(scene) {
     const grayMat = new THREE.MeshPhongMaterial({ color: 'gray' });
     const bulbMat = new THREE.MeshPhongMaterial({ color: 'yellow', emissive: 'yellow' });
@@ -135,5 +84,49 @@ export function addSpotlights(scene) {
         spot.shadow.mapSize.height = 1024;
         scene.add(spot);
         scene.add(spot.target);
+    });
+}
+
+export function addBleachers(scene) {
+    const seatMat = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
+    const frameMat = new THREE.MeshPhongMaterial({ color: 0x999999 });
+
+    const rows = 5;
+    const treadDepth = 1.2;
+    const riserHeight = 0.5;
+    const length = 28;
+
+    [-1, 1].forEach(side => {
+        const startX = side * 11;
+
+        for (let i = 0; i < rows; i++) {
+            const seatX = startX + side * (i * treadDepth + treadDepth / 2);
+            const seatY = i * riserHeight + 0.1;
+
+            const seat = new THREE.Mesh(
+                new THREE.BoxGeometry(treadDepth, 0.12, length),
+                seatMat
+            );
+            seat.position.set(seatX, seatY, 0);
+            scene.add(seat);
+
+            if (i > 0) {
+                const riserX = startX + side * i * treadDepth;
+                const riserY = i * riserHeight - riserHeight / 2 + 0.1;
+                const riser = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.12, riserHeight, length),
+                    frameMat
+                );
+                riser.position.set(riserX, riserY, 0);
+                scene.add(riser);
+            }
+        }
+
+        const base = new THREE.Mesh(
+            new THREE.BoxGeometry(rows * treadDepth, 0.15, length),
+            frameMat
+        );
+        base.position.set(startX + side * (rows * treadDepth / 2), -0.08, 0);
+        scene.add(base);
     });
 }
