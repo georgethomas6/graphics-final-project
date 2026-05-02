@@ -1,28 +1,85 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Tennis Court</title>
-    <style>
-      canvas {
-          display: block;
-          width: 100%;
-          height: 100%;
-      }
-    </style>
-</head>
+<html lang="en">
 
-<body>
-<script type="importmap">
-            {
-                "imports": {
-                    "three": "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js",
-                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/",
-                    "tw": "https://cs.wellesley.edu/~cs307/threejs/libs/tw-fa25.js",
-                    "gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.20/+esm"
-                }
-            }
-</script>
-<script type="module" src="main.js"></script>
-</body>
+  <head>
+    <title>Sewanee Center Court</title>
+  </head>
+
+  <body style="background-color:#faf2f2;">
+    <style>
+body {
+  margin: 0; /* removes default whitespace around page */
+}
+    p {
+      margin: 10px;
+      font-size: 20px;
+    }
+    a:link, a:visited {
+      background-color: #582c83;
+      color: white;
+      padding: 14px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 30px;
+    }
+
+    a:hover, a:active {
+      background-color: red;
+    }
+    h1 {
+      background-color: #582c83;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      margin: 0; /* removes space above/below the header */
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .link {
+      justify-content: left;
+      margin-left: 40px;
+      margin-top: 40px;
+    }
+
+    .image-row img {
+      width: 30%;
+      height: auto;
+    }
+    </style>
+    </style>
+    <h1>Remi Jakobi and George Thomas Alexander's Computer Graphics Final Project</h1>
+
+    <p> Sewanee Center Court is a fully 3D tennis scene built with Three.js. The project started from a simple idea of what would a Sewanee Center Court actually look like when you model it from scratch. From the baseline to the bleachers, from the net posts to the light poles, the goal was to build a scene that would visualize what a center court on the Domain might look like if it were rendered in 3D. The project includes
+
+    The project grew out of our interest in both computer graphics and tennis. Combining procedural geometry, custom lighting, and animation into a single interactive scene gave us a chance to apply everything covered in CS 360 in one place.</p>
+
+    <h1> Features </h1>
+
+    <h1> Screenshots </h1>
+
+    <div class="image-row">
+      <img src="court_pic1.png">
+      <img src="court_pic2.png">
+      <img src="court_pic3.png">
+    </div>
+
+    </p>
+
+    <div class="link"> 
+    <a href="./court.html"> Court Demo</a>
+    </div>
+    <div class="link"> 
+    <a href="./racquet.html"> Racquet Demo</a>
+    </div>
+    <div class="link"> 
+    <a href="https://github.com/georgethomas6/graphics-final-project"> Github Repo </a>
+    </div>
+  </body>
+
 </html>
